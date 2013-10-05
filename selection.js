@@ -1,4 +1,4 @@
-/* We need to take CSS selectors from our mouse selection */ 
+    /* We need to take CSS selectors from our mouse selection */ 
 
 var jq = document.createElement('script');
 jq.src = "//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
@@ -9,13 +9,16 @@ jQuery.noConflict();
 var selectionSelectors = function(){
     var selObj = window.getSelection();
     var range  = selObj.getRangeAt(0);
-    var selector = range.startContainer.parentNode;    
+    var selector = range.startContainer.parentNode;
+    var arrayOfClasses = new Array();    
     while(!hasClass(selector)){
         // TODO: what if there are no classes anywhere, infinite loop?
         selector = $(selector).parent();
     }
-   
-    return $(selector).attr('class');
+    arrayOfClasses.push($(selector).attr("class"));
+    
+    
+    return arrayOfClasses;
 }
 
 var hasClass = function(node){
@@ -24,4 +27,14 @@ var hasClass = function(node){
         return true;
     else 
         return false;
+}
+
+var highlightFieldsWithClass = function(arrayOfClasses){
+    for (var i=0; i<arrayOfClasses.length; i++) {
+        $("."+arrayOfClasses[i]).css('background-color', 'blue');
+    }
+}
+
+var run = function(){
+    highlightFieldsWithClass(selectionSelectors());
 }
