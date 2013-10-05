@@ -15,9 +15,13 @@ var selectionSelectors = function(){
         // TODO: what if there are no classes anywhere, infinite loop?
         selector = $(selector).parent();
     }
+	
+	var allClasses = $(selector).attr("class").split();
+	for (var i=0;i<allClasses.length;i++) {
+		arrayOfClasses.push(allClasses[i]);
+	}
     arrayOfClasses.push($(selector).attr("class"));
-    
-    
+   
     return arrayOfClasses;
 }
 
