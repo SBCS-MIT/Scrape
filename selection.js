@@ -1,4 +1,4 @@
-    /* We need to take CSS selectors from our mouse selection */ 
+/* We need to take CSS selectors from our mouse selection */ 
 
 var jq = document.createElement('script');
 jq.src = "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
@@ -6,6 +6,8 @@ document.getElementsByTagName('head')[0].appendChild(jq);
 // ... give time for script to load, then type.
 // if no jQuery object this causes error:
 //jQuery.noConflict();
+
+var bg = "scrapy-hover-background";
 
 var selectionSelectors = function(){
     var selObj = window.getSelection();
@@ -45,6 +47,20 @@ var run = function(){
     highlightFieldsWithClass(selectionSelectors());
 }
 
-$('*').on("click", function(eventObject){
+$('body').on("click", "p", function(eventObject){   // TODO: this actually needs to be more general than paragraphs.
     $(this).css("background-color", "yellow");
 });
+
+var bgcolor;
+$('body').find('*').each(function(index, element){
+    console.log($(element).attr('class'));
+    if($(element).attr('class') !== ""){
+        $(element).hover(function(){
+            bgcolor = $(this).css("background-color");
+            $(element).css("background-color", "orange");
+        }, function(){
+            $(element).css("background-color", bgcolor);
+        });
+    }
+});
+
