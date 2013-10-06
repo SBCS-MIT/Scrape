@@ -4,7 +4,8 @@ var jq = document.createElement('script');
 jq.src = "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
 document.getElementsByTagName('head')[0].appendChild(jq);
 // ... give time for script to load, then type.
-jQuery.noConflict();
+// if no jQuery object this causes error:
+//jQuery.noConflict();
 
 var selectionSelectors = function(){
     var selObj = window.getSelection();
@@ -43,3 +44,7 @@ var highlightFieldsWithClass = function(arrayOfClasses){
 var run = function(){
     highlightFieldsWithClass(selectionSelectors());
 }
+
+$('*').on("click", function(eventObject){
+    $(this).css("background-color", "yellow");
+});
